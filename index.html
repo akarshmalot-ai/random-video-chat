@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Random Video Chat</title>
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;background:#101322;color:white;
+font-family:Arial;text-align:center;padding:25px
+}
+h1{color:#60a5fa}
+.card{
+max-width:600px;margin:25px auto;
+background:#202940;padding:20px;
+border-radius:18px
+}
+video{
+width:100%;background:#080b13;
+border-radius:12px;min-height:180px
+}
+button{
+padding:13px 20px;margin:7px;
+border:0;border-radius:10px;
+background:#2563eb;color:white;
+font-size:15px
+}
+</style>
+</head>
+<body>
+<h1>Random Video Chat</h1>
+<p>Meet people around the world</p>
+<div class="card">
+<h3>Your Camera</h3>
+<video id="camera" autoplay muted playsinline></video>
+<button onclick="startCamera()">Start Camera</button>
+<button onclick="stopCamera()">Stop Camera</button>
+</div>
+<div class="card">
+<h3>Find Someone</h3>
+<button onclick="alert('Matching server will be connected in the next step!')">Start Chat</button>
+<button onclick="alert('Skip clicked')">Next</button>
+<p>India | Worldwide</p>
+</div>
+<script>
+let stream;
+async function startCamera(){
+try{
+stream=await navigator.mediaDevices.getUserMedia({
+video:true,audio:true
+});
+document.getElementById('camera').srcObject=stream;
+}catch(e){
+alert('Please allow camera and microphone access');
+}
+}
+function stopCamera(){
+if(stream) stream.getTracks().forEach(t=>t.stop());
+document.getElementById('camera').srcObject=null;
+}
+</script>
+</body>
+</html>
